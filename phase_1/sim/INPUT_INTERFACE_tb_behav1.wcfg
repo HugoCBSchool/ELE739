@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="INPUT_INTERFACE_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="INPUT_INTERFACE_tb" />
+            <top_module name="pk_input_interface" />
+            <top_module name="pk_time" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="673501fs"></ZoomEndTime>
+      <Cursor1Time time="410000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="162"></NameColumnWidth>
+      <ValueColumnWidth column_width="67"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="7" />
+   <wvobject fp_name="/INPUT_INTERFACE_tb/i_clk" type="logic">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/INPUT_INTERFACE_tb/i_hw_input" type="array">
+      <obj_property name="ElementShortName">i_hw_input</obj_property>
+      <obj_property name="ObjectShortName">i_hw_input</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_hw_input.ped" type="logic">
+         <obj_property name="ElementShortName">.ped</obj_property>
+         <obj_property name="ObjectShortName">.ped</obj_property>
+         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_hw_input.nxt" type="logic">
+         <obj_property name="ElementShortName">.nxt</obj_property>
+         <obj_property name="ObjectShortName">.nxt</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_hw_input.step" type="logic">
+         <obj_property name="ElementShortName">.step</obj_property>
+         <obj_property name="ObjectShortName">.step</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_hw_input.maint" type="logic">
+         <obj_property name="ElementShortName">.maint</obj_property>
+         <obj_property name="ObjectShortName">.maint</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_hw_input.ped" type="logic">
+         <obj_property name="ElementShortName">.ped</obj_property>
+         <obj_property name="ObjectShortName">.ped</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_hw_input.nxt" type="logic">
+         <obj_property name="ElementShortName">.nxt</obj_property>
+         <obj_property name="ObjectShortName">.nxt</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_hw_input.step" type="logic">
+         <obj_property name="ElementShortName">.step</obj_property>
+         <obj_property name="ObjectShortName">.step</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_hw_input.maint" type="logic">
+         <obj_property name="ElementShortName">.maint</obj_property>
+         <obj_property name="ObjectShortName">.maint</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/INPUT_INTERFACE_tb/i_reset" type="array">
+      <obj_property name="ElementShortName">i_reset</obj_property>
+      <obj_property name="ObjectShortName">i_reset</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_reset.ped" type="logic">
+         <obj_property name="ElementShortName">.ped</obj_property>
+         <obj_property name="ObjectShortName">.ped</obj_property>
+         <obj_property name="CustomSignalColor">#FF0000</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_reset.nxt" type="logic">
+         <obj_property name="ElementShortName">.nxt</obj_property>
+         <obj_property name="ObjectShortName">.nxt</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_reset.step" type="logic">
+         <obj_property name="ElementShortName">.step</obj_property>
+         <obj_property name="ObjectShortName">.step</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_reset.maint" type="logic">
+         <obj_property name="ElementShortName">.maint</obj_property>
+         <obj_property name="ObjectShortName">.maint</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_reset.ped" type="logic">
+         <obj_property name="ElementShortName">.ped</obj_property>
+         <obj_property name="ObjectShortName">.ped</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_reset.nxt" type="logic">
+         <obj_property name="ElementShortName">.nxt</obj_property>
+         <obj_property name="ObjectShortName">.nxt</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_reset.step" type="logic">
+         <obj_property name="ElementShortName">.step</obj_property>
+         <obj_property name="ObjectShortName">.step</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/i_reset.maint" type="logic">
+         <obj_property name="ElementShortName">.maint</obj_property>
+         <obj_property name="ObjectShortName">.maint</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group159" type="group">
+      <obj_property name="label">ped</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_PED/i_sync" type="logic">
+         <obj_property name="ElementShortName">i_sync</obj_property>
+         <obj_property name="ObjectShortName">i_sync</obj_property>
+         <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_PED/i_reset" type="logic">
+         <obj_property name="ElementShortName">i_reset</obj_property>
+         <obj_property name="ObjectShortName">i_reset</obj_property>
+         <obj_property name="CustomSignalColor">#FF0000</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_PED/o_done" type="logic">
+         <obj_property name="ElementShortName">o_done</obj_property>
+         <obj_property name="ObjectShortName">o_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_PED/w_next_state" type="other">
+         <obj_property name="ElementShortName">w_next_state</obj_property>
+         <obj_property name="ObjectShortName">w_next_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_PED/r_state" type="other">
+         <obj_property name="ElementShortName">r_state</obj_property>
+         <obj_property name="ObjectShortName">r_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_PED/w_ld" type="logic">
+         <obj_property name="ElementShortName">w_ld</obj_property>
+         <obj_property name="ObjectShortName">w_ld</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_PED/w_done" type="logic">
+         <obj_property name="ElementShortName">w_done</obj_property>
+         <obj_property name="ObjectShortName">w_done</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/INPUT_INTERFACE_tb/o_req" type="array">
+      <obj_property name="ElementShortName">o_req</obj_property>
+      <obj_property name="ObjectShortName">o_req</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="group176" type="group">
+      <obj_property name="label">nxt</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/i_sync" type="logic">
+         <obj_property name="ElementShortName">i_sync</obj_property>
+         <obj_property name="ObjectShortName">i_sync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/i_reset" type="logic">
+         <obj_property name="ElementShortName">i_reset</obj_property>
+         <obj_property name="ObjectShortName">i_reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/i_clk" type="logic">
+         <obj_property name="ElementShortName">i_clk</obj_property>
+         <obj_property name="ObjectShortName">i_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/o_done" type="logic">
+         <obj_property name="ElementShortName">o_done</obj_property>
+         <obj_property name="ObjectShortName">o_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/w_ld_slv" type="array">
+         <obj_property name="ElementShortName">w_ld_slv[4:0]</obj_property>
+         <obj_property name="ObjectShortName">w_ld_slv[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/w_next_state" type="other">
+         <obj_property name="ElementShortName">w_next_state</obj_property>
+         <obj_property name="ObjectShortName">w_next_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/r_state" type="other">
+         <obj_property name="ElementShortName">r_state</obj_property>
+         <obj_property name="ObjectShortName">r_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/w_next_idle" type="other">
+         <obj_property name="ElementShortName">w_next_idle</obj_property>
+         <obj_property name="ObjectShortName">w_next_idle</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/w_next_count" type="other">
+         <obj_property name="ElementShortName">w_next_count</obj_property>
+         <obj_property name="ObjectShortName">w_next_count</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/w_next_lock" type="other">
+         <obj_property name="ElementShortName">w_next_lock</obj_property>
+         <obj_property name="ObjectShortName">w_next_lock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/w_ld" type="logic">
+         <obj_property name="ElementShortName">w_ld</obj_property>
+         <obj_property name="ObjectShortName">w_ld</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/w_done" type="logic">
+         <obj_property name="ElementShortName">w_done</obj_property>
+         <obj_property name="ObjectShortName">w_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/g_clk_freq_mhz" type="other">
+         <obj_property name="ElementShortName">g_clk_freq_mhz</obj_property>
+         <obj_property name="ObjectShortName">g_clk_freq_mhz</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/g_time_rst_s" type="other">
+         <obj_property name="ElementShortName">g_time_rst_s</obj_property>
+         <obj_property name="ObjectShortName">g_time_rst_s</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/c_uvec_w" type="other">
+         <obj_property name="ElementShortName">c_uvec_w</obj_property>
+         <obj_property name="ObjectShortName">c_uvec_w</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_NXT/c_uvec_tck" type="array">
+         <obj_property name="ElementShortName">c_uvec_tck[4:0]</obj_property>
+         <obj_property name="ObjectShortName">c_uvec_tck[4:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group193" type="group">
+      <obj_property name="label">maint</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/i_sync" type="logic">
+         <obj_property name="ElementShortName">i_sync</obj_property>
+         <obj_property name="ObjectShortName">i_sync</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/i_reset" type="logic">
+         <obj_property name="ElementShortName">i_reset</obj_property>
+         <obj_property name="ObjectShortName">i_reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/i_clk" type="logic">
+         <obj_property name="ElementShortName">i_clk</obj_property>
+         <obj_property name="ObjectShortName">i_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/o_done" type="logic">
+         <obj_property name="ElementShortName">o_done</obj_property>
+         <obj_property name="ObjectShortName">o_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/w_ld_slv" type="array">
+         <obj_property name="ElementShortName">w_ld_slv[4:0]</obj_property>
+         <obj_property name="ObjectShortName">w_ld_slv[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/w_next_state" type="other">
+         <obj_property name="ElementShortName">w_next_state</obj_property>
+         <obj_property name="ObjectShortName">w_next_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/r_state" type="other">
+         <obj_property name="ElementShortName">r_state</obj_property>
+         <obj_property name="ObjectShortName">r_state</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/w_next_idle" type="other">
+         <obj_property name="ElementShortName">w_next_idle</obj_property>
+         <obj_property name="ObjectShortName">w_next_idle</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/w_next_count" type="other">
+         <obj_property name="ElementShortName">w_next_count</obj_property>
+         <obj_property name="ObjectShortName">w_next_count</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/w_next_lock" type="other">
+         <obj_property name="ElementShortName">w_next_lock</obj_property>
+         <obj_property name="ObjectShortName">w_next_lock</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/w_ld" type="logic">
+         <obj_property name="ElementShortName">w_ld</obj_property>
+         <obj_property name="ObjectShortName">w_ld</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/w_done" type="logic">
+         <obj_property name="ElementShortName">w_done</obj_property>
+         <obj_property name="ObjectShortName">w_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/g_clk_freq_mhz" type="other">
+         <obj_property name="ElementShortName">g_clk_freq_mhz</obj_property>
+         <obj_property name="ObjectShortName">g_clk_freq_mhz</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/g_time_rst_s" type="other">
+         <obj_property name="ElementShortName">g_time_rst_s</obj_property>
+         <obj_property name="ObjectShortName">g_time_rst_s</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/c_uvec_w" type="other">
+         <obj_property name="ElementShortName">c_uvec_w</obj_property>
+         <obj_property name="ObjectShortName">c_uvec_w</obj_property>
+      </wvobject>
+      <wvobject fp_name="/INPUT_INTERFACE_tb/DUT/INPUT_LATCH_maint/c_uvec_tck" type="array">
+         <obj_property name="ElementShortName">c_uvec_tck[4:0]</obj_property>
+         <obj_property name="ObjectShortName">c_uvec_tck[4:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="FSM_PED_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="FSM_PED_tb" />
+            <top_module name="pk_fsm_control" />
+            <top_module name="pk_time" />
+            <top_module name="pk_time_cst" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="29493750000000fs"></ZoomStartTime>
+      <ZoomEndTime time="29879250000001fs"></ZoomEndTime>
+      <Cursor1Time time="29539750000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="169"></NameColumnWidth>
+      <ValueColumnWidth column_width="91"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="11" />
+   <wvobject fp_name="/FSM_PED_tb/i_clk" type="logic">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/w_ctrl_slv" type="array">
+      <obj_property name="ElementShortName">w_ctrl_slv[2:0]</obj_property>
+      <obj_property name="ObjectShortName">w_ctrl_slv[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/i_ctrl" type="array">
+      <obj_property name="ElementShortName">i_ctrl</obj_property>
+      <obj_property name="ObjectShortName">i_ctrl</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/o_state" type="array">
+      <obj_property name="ElementShortName">o_state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">o_state[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/o_light" type="logic">
+      <obj_property name="ElementShortName">o_light</obj_property>
+      <obj_property name="ObjectShortName">o_light</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/o_count_done" type="logic">
+      <obj_property name="ElementShortName">o_count_done</obj_property>
+      <obj_property name="ObjectShortName">o_count_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/FSM_PED_2/w_count_done" type="logic">
+      <obj_property name="ElementShortName">w_count_done</obj_property>
+      <obj_property name="ObjectShortName">w_count_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/FSM_PED_2/w_count_done_strobe" type="logic">
+      <obj_property name="ElementShortName">w_count_done_strobe</obj_property>
+      <obj_property name="ObjectShortName">w_count_done_strobe</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/FSM_PED_2/w_load_value" type="array">
+      <obj_property name="ElementShortName">w_load_value[5:0]</obj_property>
+      <obj_property name="ObjectShortName">w_load_value[5:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/FSM_PED_2/w_load" type="logic">
+      <obj_property name="ElementShortName">w_load</obj_property>
+      <obj_property name="ObjectShortName">w_load</obj_property>
+   </wvobject>
+   <wvobject fp_name="/FSM_PED_tb/FSM_PED_2/w_load_strobe" type="logic">
+      <obj_property name="ElementShortName">w_load_strobe</obj_property>
+      <obj_property name="ObjectShortName">w_load_strobe</obj_property>
+   </wvobject>
+</wave_config>
