@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="SIGNAL_GENERATOR_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="SIGNAL_GENERATOR_tb" />
+            <top_module name="pk_signal_generator_cst" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="59750000000000fs"></ZoomStartTime>
+      <ZoomEndTime time="81650000000001fs"></ZoomEndTime>
+      <Cursor1Time time="78000000000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="116"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="10" />
+   <wvobject fp_name="/SIGNAL_GENERATOR_tb/i_clk" type="logic">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/SIGNAL_GENERATOR_tb/i_gen_active" type="logic">
+      <obj_property name="ElementShortName">i_gen_active</obj_property>
+      <obj_property name="ObjectShortName">i_gen_active</obj_property>
+   </wvobject>
+   <wvobject fp_name="/SIGNAL_GENERATOR_tb/i_reset" type="logic">
+      <obj_property name="ElementShortName">i_reset</obj_property>
+      <obj_property name="ObjectShortName">i_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/SIGNAL_GENERATOR_tb/i_filter_active" type="logic">
+      <obj_property name="ElementShortName">i_filter_active</obj_property>
+      <obj_property name="ObjectShortName">i_filter_active</obj_property>
+   </wvobject>
+   <wvobject fp_name="/SIGNAL_GENERATOR_tb/w_in" type="array">
+      <obj_property name="ElementShortName">w_in[2:0]</obj_property>
+      <obj_property name="ObjectShortName">w_in[2:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="vbus36" type="vbus">
+      <obj_property name="label">s1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[7]" type="logic">
+         <obj_property name="ElementShortName">[7]</obj_property>
+         <obj_property name="ObjectShortName">[7]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[6]" type="logic">
+         <obj_property name="ElementShortName">[6]</obj_property>
+         <obj_property name="ObjectShortName">[6]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[5]" type="logic">
+         <obj_property name="ElementShortName">[5]</obj_property>
+         <obj_property name="ObjectShortName">[5]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[4]" type="logic">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">[4]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[3]" type="logic">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">[3]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[2]" type="logic">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">[2]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[1]" type="logic">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[0]" type="logic">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">[0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="vbus27" type="vbus">
+      <obj_property name="label">s2</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[15]" type="logic">
+         <obj_property name="ElementShortName">[15]</obj_property>
+         <obj_property name="ObjectShortName">[15]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[14]" type="logic">
+         <obj_property name="ElementShortName">[14]</obj_property>
+         <obj_property name="ObjectShortName">[14]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[13]" type="logic">
+         <obj_property name="ElementShortName">[13]</obj_property>
+         <obj_property name="ObjectShortName">[13]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[12]" type="logic">
+         <obj_property name="ElementShortName">[12]</obj_property>
+         <obj_property name="ObjectShortName">[12]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[11]" type="logic">
+         <obj_property name="ElementShortName">[11]</obj_property>
+         <obj_property name="ObjectShortName">[11]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[10]" type="logic">
+         <obj_property name="ElementShortName">[10]</obj_property>
+         <obj_property name="ObjectShortName">[10]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[9]" type="logic">
+         <obj_property name="ElementShortName">[9]</obj_property>
+         <obj_property name="ObjectShortName">[9]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_signal_probe[8]" type="logic">
+         <obj_property name="ElementShortName">[8]</obj_property>
+         <obj_property name="ObjectShortName">[8]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_cos" type="array">
+      <obj_property name="ElementShortName">o_cos[7:0]</obj_property>
+      <obj_property name="ObjectShortName">o_cos[7:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/SIGNAL_GENERATOR_tb/o_reset_ack" type="logic">
+      <obj_property name="ElementShortName">o_reset_ack</obj_property>
+      <obj_property name="ObjectShortName">o_reset_ack</obj_property>
+   </wvobject>
+   <wvobject fp_name="/SIGNAL_GENERATOR_tb/DUT/r_state" type="other">
+      <obj_property name="ElementShortName">r_state</obj_property>
+      <obj_property name="ObjectShortName">r_state</obj_property>
+   </wvobject>
+</wave_config>
