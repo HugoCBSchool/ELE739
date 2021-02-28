@@ -1,28 +1,44 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date: 01/25/2021 06:59:02 PM
--- Design Name: 
--- Module Name: DOWN_COUNTER - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Title       : Down counter
+-- Project     : ELE739 - PHASE 2
+--------------------------------------------------------------------------------
+-- File        : Down_Counter.vhd
+-- Author      : Hugo Cusson-Bouthillier
+-- Created     : Wed Feb 24 19:08:06 2021
+-- Last update : Wed Feb 24 22:17:05 2021
+-- Platform    : Default Part Number
+-- Standard    : <VHDL-2008 | VHDL-2002 | VHDL-1993 | VHDL-1987>
+--------------------------------------------------------------------------------
+-- Copyright (c) 2021 Hugo Cusson-Bouthillier
+-------------------------------------------------------------------------------
+-- Description: This module is a downcounter which generates an interupt at 
+-- underflow with load input
+-------------------------------------------------------------------------------
+--! Waveform:
+--! {
+--!		signal:[
+--!			{name: "i_clk",                   wave: "p.................."},
+--!			{name: "i_hw_input_slv.ped",      wave: "x01.0.............."},
+--!			{name: "i_hw_input_slv.nxt",      wave: "x01.0.............."},
+--!			{name: "i_hw_input_slv.step",     wave: "x01.0.............."},
+--!			{name: "i_hw_input_slv.maint",    wave: "x01.0.............."},
+--!			{name: "i_reset_slv.ped",         wave: "x0....10..........."},
+--!			{name: "i_reset_slv.nxt",         wave: "x0......10........."},
+--!			{name: "i_reset_slv.step",        wave: "x.................."},
+--!			{name: "i_reset_slv.maint",       wave: "x0........10......."},
+--!			{name: "o_req_slv.ped",           wave: "x0.........1.0....."},
+--!			{name: "o_req_slv.nxt",           wave: "x0.........1...0..."},
+--!			{name: "o_req_slv.step",          wave: "x0........1.0......"},
+--!			{name: "o_req_slv.maint",         wave: "x0.........1.....0."},
+--!		]
+--! }
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.numeric_std.all;
 library work;
 
-
+--! This module is a downcounter which generates an interupt at 
+--! underflow with load input
 entity DOWN_COUNTER is
     generic(
         constant g_unsigned_width:natural:=8 --! the width of the unsigned load_value

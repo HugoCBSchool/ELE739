@@ -10,24 +10,24 @@
 -- Project Name: ELE739 - Phase 2
 -- Target Devices: Basys 3
 -- Description: 
---  This component represents the interconnect slices of DSP48E1 used to calculate the
---  filtered slices between the head and the tail. This component can be grouped with
---  the HEAD component and the TAIL component to complete the filter.
+--!  This component represents the interconnect slices of DSP48E1 used to calculate the
+--!  filtered slices between the head and the tail. This component can be grouped with
+--!  the HEAD component and the TAIL component to complete the filter.
 -- 
--- File dependencies: 
---   None
+--! File dependencies: 
+--!   None
 -- 
--- Revision:
---   Revision 0.01 - File Created
--- Additional Comments:
---    For each variable name, the following indicators are used:
---        g_<var> : generic
---        i_<var> : input
---        o_<var> : output
---        w_<var> : internal wire
---        r_<var> : register
---        c_<var> : constant
---        s_<var> : local signal
+--! Revision:
+--!   Revision 0.01 - File Created
+--! Additional Comments:
+--!    For each variable name, the following indicators are used:
+--!        g_<var> : generic
+--!        i_<var> : input
+--!        o_<var> : output
+--!        w_<var> : internal wire
+--!        r_<var> : register
+--!        c_<var> : constant
+--!        s_<var> : local signal
 ----------------------------------------------------------------------------------
 
 --   DSP48E1   : In order to incorporate this function into the design,

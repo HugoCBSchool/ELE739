@@ -1,22 +1,49 @@
 --------------------------------------------------------------------------------
--- Title       : signal generator module
+-- Title       : CONTROLER MODULE
 -- Project     : ELE739 - PHASE 2
 --------------------------------------------------------------------------------
--- File        : SIGNAL_GENERATOR.vhd
+-- File        : CONTROLER.vhd
 -- Author      : Hugo Cusson-Bouthillier
 -- Created     : Wed Feb 24 19:08:06 2021
--- Last update : Fri Feb 26 02:52:38 2021
+-- Last update : Wed Feb 24 22:17:05 2021
 -- Platform    : Default Part Number
 -- Standard    : <VHDL-2008 | VHDL-2002 | VHDL-1993 | VHDL-1987>
 --------------------------------------------------------------------------------
 -- Copyright (c) 2021 Hugo Cusson-Bouthillier
 -------------------------------------------------------------------------------
--- Description: 
---------------------------------------------------------------------------------
--- Revisions:  Revisions and documentation are controlled by
--- the revision control system (RCS).  The RCS should be consulted
--- on revision history.
+--! Description: This module is responsible for generating either a cosine wave
+--! or a sawtooth wave. The functions sampled are detailed below
+--!   -  fcos(n)=1.0048*cos[ n*pi/8 + 0.05625*pi ]
+--!   -  fsaw(n)=(1.0-n/8)-0.015625  </br></br></br>
 -------------------------------------------------------------------------------
+--! **TYPES**
+--! - tslv_bus_sortie:
+--!   {reg:[
+--!        {name: 'MSB',   bits: 8, type: 1},
+--!        {name: 'LSB',   bits: 8, type: 2},
+--!    ],
+--!    config:{bits:16}
+--!   }
+--! - tslv_sample:
+--!   {reg:[
+--!        {name: 'COSINUS',   bits: 8, type: 1}
+--!    ],
+--!    config:{bits:8}
+--!   }
+--! Waveform:
+--! {
+--!		signal:[
+--!			{name: "i_clk",                      wave: "p....|...........|.."},
+--!			{name: "i_ctrl_slv.reset",           wave: "x0...|....1.0....|.."},
+--!			{name: "i_ctrl_slv.gen_active",      wave: "x01..|..01.......|.."},
+--!			{name: "i_ctrl_slv.filter_active",   wave: "x0...|.......1...|.."},
+--!			{name: "o_reset_ack",                wave: "x10..|.....1.0...|.."},
+--!			{name: "o_signal_probe_MSB",         wave: "x=.==|======.==..|..",data: ["fsaw[0]","[1]","...","[16]","[0]","[1]","[0]","[1]","[0]","[1]","[0]"]},
+--!			{name: "o_signal_probe_LSB",         wave: "x=...|.........==|==",data: ["fcos[0]","[1]","...","[16]","[0]","[1]","[0]","[1]","[0]","[1]","[0]"]},
+--!			{name: "o_cos",        				 wave: "x=...|........===|==",data: ["0","[0]","[1]","...","[16]","[0]","[1]","[0]","[1]","[0]","[1]","[0]"]},
+--!			{name: "o_signal_rdy",               wave: "x0.1.|...010.11..|.."}
+--!		]
+--! }
 
 
 library ieee;
@@ -33,7 +60,7 @@ use work.pk_controler.all;
 entity SIGNAL_GENERATOR is
 	port (
 		i_clk           : in  std_logic;
-        i_ctrl_slv      : tslv_ctrl;
+        i_ctrl_slv      : in  tslv_ctrl;
         o_reset_ack     : out std_logic;
 		o_signal_probe  : out tslv_bus_sortie;
 		o_cos           : out tslv_sample;

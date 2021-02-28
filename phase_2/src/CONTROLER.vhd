@@ -11,13 +11,60 @@
 --------------------------------------------------------------------------------
 -- Copyright (c) 2021 Hugo Cusson-Bouthillier
 -------------------------------------------------------------------------------
--- Description: 
---------------------------------------------------------------------------------
--- Revisions:  Revisions and documentation are controlled by
--- the revision control system (RCS).  The RCS should be consulted
--- on revision history.
+-- Description: This module is responsible for controling the mode of operation
+-- of the signal generator, output bus and filter module based on the externally
+-- synchronized values of the input user interface
 -------------------------------------------------------------------------------
-
+--! **TYPES**
+--! - trec_input:
+--!   {reg:[
+--!        {name: 'RESET_G',   bits: 1, type: 1},
+--!        {name: 'RESTART',   bits: 1, type: 2},
+--!        {name: 'NEXT_MODE',   bits: 1,type: 3},
+--!    ],
+--!    config:{bits:3}
+--!   }
+--! - trec_ctrl:
+--!   {reg:[
+--!        {name: 'reset',   bits: 1, type: 1},
+--!        {name: 'gen_active',   bits: 1, type: 2},
+--!        {name: 'filter_active',   bits: 1,type: 3},
+--!    ],
+--!    config:{bits:3}
+--!   }
+--! - tslv_bus_sortie:
+--!   {reg:[
+--!        {name: 'MSB',   bits: 8, type: 1},
+--!        {name: 'LSB',   bits: 8, type: 2},
+--!    ],
+--!    config:{bits:16}
+--!   }
+--! - tslv_ctrl:
+--!   {reg:[
+--!        {name: 'idle_active',   bits: 1, type: 1},
+--!        {name: 'gen_active',   bits: 1, type: 2},
+--!        {name: 'filter_active',   bits: 1, type: 3},
+--!    ],
+--!    config:{bits:3}
+--!   }
+--! Waveform:
+--! {
+--!		signal:[
+--!			{name: "i_clk",                   wave: "p.................."},
+--!			{name: "i_hw_input_slv.ped",      wave: "x01.0.............."},
+--!			{name: "i_hw_input_slv.nxt",      wave: "x01.0.............."},
+--!			{name: "i_hw_input_slv.step",     wave: "x01.0.............."},
+--!			{name: "i_hw_input_slv.maint",    wave: "x01.0.............."},
+--!			{name: "i_reset_slv.ped",         wave: "x0....10..........."},
+--!			{name: "i_reset_slv.nxt",         wave: "x0......10........."},
+--!			{name: "i_reset_slv.step",        wave: "x.................."},
+--!			{name: "i_reset_slv.maint",       wave: "x0........10......."},
+--!			{name: "o_req_slv.ped",           wave: "x0.........1.0....."},
+--!			{name: "o_req_slv.nxt",           wave: "x0.........1...0..."},
+--!			{name: "o_req_slv.step",          wave: "x0........1.0......"},
+--!			{name: "o_req_slv.maint",         wave: "x0.........1.....0."},
+--!		]
+--! }
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -29,15 +76,19 @@ library work;
 use work.pk_CONTROLER.all;
 use work.pk_time.all;
 
+-------------------------------------------------------------------------------
+--! This module is responsible for controling the mode of operation
+--! of the signal generator, output bus and filter module based on the externally
+--! synchronized values of the input user interface
 entity CONTROLER is
 	port(
 		i_clk              : in  std_logic;       --! clock
 		i_reset_ack_gen    : in  std_logic;       --! acknowledge from generator following reset request
 		i_reset_ack_filter : in  std_logic;       --! acknowledge from filter    following reset request
-        i_input_slv        : in  tslv_input;
+        i_input_slv        : in  tslv_input;	  --! the input values of the buttons
 		i_filter           : in  tslv_bus_sortie; --! output bus of filter
 		i_generator        : in  tslv_bus_sortie; --! output bus of generator
-		o_ctrl_bus         : out tslv_ctrl;
+		o_ctrl_bus         : out tslv_ctrl;       --! control bus towards signal generator and filter
 		o_mode_led_3       : out tslv_mode_led_3; --! led register output for mode output interface
 		o_bus_sortie       : out tslv_bus_sortie;  --! output bus towards output led register
 		o_reset_latch      : out tslv_input
@@ -46,16 +97,16 @@ end CONTROLER;
 
 architecture Behavioral of CONTROLER is
 
-	signal w_in          : trec_input;
-	signal w_reset_latch : trec_input;
-	signal w_in_slv      : tslv_input;
-	signal w_mux_out     : std_logic_vector(i_filter'length + o_mode_led_3'length -1 downto 0);
-
-	signal r_mode    : s_mode := s_reset;
-	signal r_reset_latch_next_mode : std_logic:='0';
-	signal w_ctrl : trec_ctrl;
+	signal w_in          : trec_input;																--! interface for input bus
+	signal w_reset_latch : trec_input;																--! interface for input reset signals
+	signal w_in_slv      : tslv_input;																--! typecast recepient
+	signal w_mux_out     : std_logic_vector(i_filter'length + o_mode_led_3'length -1 downto 0);		--! typecast recepient
+	signal r_mode    : s_mode := s_reset;															--! state register
+	signal r_reset_latch_next_mode : std_logic:='0';												--! reset logic register
+	signal w_ctrl : trec_ctrl;																		--! interface for control bus
     
-begin  
+begin 
+
     ----------------------------------------------------------------------------
 	--input signals routing through oop interfaces
     w_in          <=  slv2input( i_input_slv );
@@ -76,7 +127,6 @@ begin
 		'1'			 when s_idle,
 		w_in.restart when others;
 	----------------------------------------------------------------------------
-	----------------------------------------------------------------------------
 	with r_mode select w_reset_latch.RESET_G   <= 
 	   (w_in.reset_g and i_reset_ack_filter and  i_reset_ack_gen)  when s_reset,
 	   ('0'                                                     )  when others; 
@@ -88,7 +138,6 @@ begin
         (w_in.restart and i_reset_ack_filter and i_reset_ack_gen) when s_gen,
         (w_in.restart                                           ) when s_idle,
         (w_in.restart                                           ) when s_reset;
-
 	----------------------------------------------------------------------------
 	--output mux logic
 	with r_mode select w_mux_out <=
@@ -101,6 +150,7 @@ begin
 	o_bus_sortie <= w_mux_out( i_filter'length  - 1 downto 0 );
 	o_mode_led_3 <= w_mux_out( w_mux_out'length - 1 downto i_filter'length );
 	----------------------------------------------------------------------------
+	--! state machine of the mode
 	fsm: process(i_clk)
 	begin
 		if rising_edge(i_clk) then
