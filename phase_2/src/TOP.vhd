@@ -78,20 +78,18 @@ begin
 	-- ============================================================================
 	--                        io routing
 	-- ----------------------------------------------------------------------------
-    w_reset_latch    <= slv2input(wslv_reset_latch); -- routing of fast-side reset signals
     o_led_bank_state <= w_mode_led_3;                -- output routing of the led bank output
     o_bus_sortie     <= w_bus_sortie;
     w_ctrl           <= slv2ctrl(wslv_ctrl);
     wslv_in          <= input2slv(w_in);
     w_in 			 <= slv2input(i_pbn_reset_g&i_pbn_restart&i_pbn_next_mode);
+    -- ============================================================================
 
+	--signal o_bus_sortie_rdy must be at 1 when the right instance is ready depending on the mode
     with w_mode_led_3 select o_bus_sortie_rdy<=
         w_filter_rdy when c_mode_led_filter,
         w_signal_rdy when c_mode_led_gen,
         '0'          when others;
-    -- ============================================================================
-
-
 
 	-- ============================================================================
 	--                       Controler instance and routings  - fast-domain

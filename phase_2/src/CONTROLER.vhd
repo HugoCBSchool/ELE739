@@ -111,6 +111,7 @@ begin
 	--io signals routing through oop interfaces
 	w_in_async	<=slv2input(i_input_slv);
 	o_ctrl_bus  <=ctrl2slv(w_ctrl);
+
 	-- ============================================================================
 	--              INPUT LATCHES FOR SYNC AND RTI APPLICATION
 	-- ----------------------------------------------------------------------------
@@ -200,26 +201,35 @@ begin
 
 
     ----------------------------------------------------------------------------
+	--! gen_active must be at 1 in mode filter and mode generator
 	with r_mode select w_ctrl.gen_active<=
 		'1' when s_gen,
 		'1' when s_filter,
 		'0' when others;
 
+	--! filter_active must be at 1 only in mode filter
 	with r_mode select w_ctrl.filter_active<=
 		'1' when s_filter,
 		'0' when others;
-		
+	
+	--! reset must be at 1 imperatively in s_reset and s_idle
+	--! it must also be active when a restart button event is registered in either s_gen or s_filter.
 	with r_mode select w_ctrl.reset<=
 		'1'			 when s_reset,
 		'1'			 when s_idle,
 		w_in.restart when others;
 
 	----------------------------------------------------------------------------
+	--! reset of the next_mode is sequential. its value is a result of the state machine
 	w_reset_latch.next_mode <= r_reset_latch_next_mode;
 
+	--! only reset the latch of reset_g if it has been applied globally and the current state is s_reset
 	with r_mode select w_reset_latch.RESET_G   <= 
 	   (w_in.reset_g and i_reset_ack_filter and  i_reset_ack_gen)  when s_reset,
-	   ('0'                                                     )  when others;    
+	   ('0'                                                     )  when others;
+	
+	--! reset the restart latch if it has affected both the filter and generator if the state is s_filter or s_gen
+	--! reset it whenever it is set, otherwise.
     with r_mode select w_reset_latch.restart <= 
         (w_in.restart and i_reset_ack_filter and i_reset_ack_gen)  when s_filter,
         (w_in.restart and i_reset_ack_filter and i_reset_ack_gen)  when s_gen,

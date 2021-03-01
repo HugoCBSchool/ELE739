@@ -120,7 +120,7 @@ begin
 		if rising_edge(i_clk) then
 
 			r_state <= s_reset; --default
-
+			
 			if w_input="011" then
 				r_state <= s_gen_cos;
 			else
