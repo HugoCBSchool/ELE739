@@ -49,44 +49,57 @@ entity INPUT_LATCH is
 		constant g_clk_freq_mhz:real:=c_clk_freq_mhz; --! the clock frequency in mhz
 		constant g_time_rst_s:  real:=0.3          ); --! the reset time in seconds
 	port(
-		i_sync: in  std_logic;          --! the signal to debounce
-		i_reset:in  std_logic;          --! reset signal of the latch
-		i_clk:  in  std_logic;          --! the clock
-		o_done: out std_logic           --! the debounced button
+		i_async: in  std_logic;          --! the signal to debounce
+		i_reset: in  std_logic;          --! reset signal of the latch
+		i_clk:   in  std_logic;          --! the clock
+		o_done:  out std_logic           --! the debounced button
 	);
 end INPUT_LATCH;
 
 architecture Behavioral of INPUT_LATCH is
     
-	constant c_uvec_w			: natural :=uvec_width(nb_tick(g_time_rst_s,g_clk_freq_mhz/2.0)-1);             --! the width of the unsigned for counting
-    subtype  t_time_lock	is unsigned(c_uvec_w-1 downto 0);                                                   --! type for the time to load in the counter
-    constant c_uvec_tck			: t_time_lock:=to_unsigned(nb_tick(g_time_rst_s,g_clk_freq_mhz/2.0)-1,c_uvec_w);--! the time to load
-    type t_state is (s_IDLE,s_COUNT,s_LOCK);    --! state type
+	constant c_uvec_w	    :  natural:=uvec_width(nb_tick(g_time_rst_s,g_clk_freq_mhz/2.0)-1);              --! the width of the unsigned for counting
+    subtype  t_time_lock	is unsigned(c_uvec_w-1 downto 0);                                                --! type for the time to load in the counter
+    type     t_state        is (s_IDLE,s_COUNT,s_LOCK);                                                      --! state type                                               
+    constant c_uvec_tck		:  t_time_lock:=to_unsigned(nb_tick(g_time_rst_s,g_clk_freq_mhz/2.0)-1,c_uvec_w);--! the time to load
+
+    signal w_ld_slv     :std_logic_vector(c_uvec_w-1 downto 0);   --! the  time of the counter 
+    signal w_ld         :std_logic;                               --! the load interupt of the counter
+    signal w_done       :std_logic;                               --! the output of the counter
+    signal w_next_state :t_state;                                 --! the next state
+    signal w_next_idle  :t_state;                                 --! comb logic paths
+    signal w_next_count :t_state;                                 --! comb logic paths
+    signal w_next_lock  :t_state;                                 --! comb logic paths
+    signal r_sreg       :std_logic_vector(1 downto 0)   :="00";   --! depounce register
+    signal r_state      :t_state                        :=s_IDLE; --! the state register
     
-    signal w_ld_slv   :std_logic_vector(c_uvec_w-1 downto 0);     --! the  time of the counter 
-    signal w_ld       :std_logic;                                 --! the load interupt of the counter
-    signal w_done     :std_logic;                                 --! the output of the counter
-    signal w_next_state:t_state;                                  --! the next state
-    signal r_state:t_state:=s_IDLE;                               --! the state register
-    signal w_next_idle,w_next_count,w_next_lock:t_state;          --! comb logic paths
-        
+    -- ============================================================================
+	--                         ATTRIBUTES
+	-- ----------------------------------------------------------------------------
+	attribute TIG : string;             -- TIG="TRUE" - Specifies a timing ignore for the asynchronous input
+	attribute IOB : string;             -- IOB="FALSE" = Specifies to not place the register into the IOB allowing 
+	                                    -- both synchronization registers to exist in the same slice 
+	attribute ASYNC_REG : string;       -- ASYNC_REG="TRUE" - Specifies registers will be receiving asynchronous data 
+	                                    -- input to allow for better timing simulation 
+	attribute HBLKNM : string;          -- HBLKNM="sync_reg" - Specifies to pack both registers into the same slice
+	-- ----------------------------------------------------------------------------
+	attribute TIG       of i_async : signal is "TRUE" ;
+    attribute IOB       of i_async : signal is "FALSE" ;
+	attribute ASYNC_REG of r_sreg  : signal is "TRUE";
+	attribute HBLKNM    of r_sreg  : signal is "sync_reg";
+	-- ============================================================================
+
+
 begin
-    
-	w_next_idle	<=	s_COUNT 	when i_sync='1' 		else 
-					s_IDLE;
-					
-	w_next_count<=	s_LOCK when (w_done='1') else
-					s_IDLE when (i_sync='0') else
-					s_COUNT;
-	w_next_lock	<=	s_IDLE		when i_reset='1' else 
-					s_LOCK;
-
-
-	with r_state select w_next_state<=
-		w_next_idle 	when s_IDLE,
-		w_next_lock 	when s_LOCK,
-		w_next_count	when s_COUNT,
-		s_IDLE 			when others; 
+    syncreg:process(i_clk)
+    begin
+        if rising_edge(i_clk) then
+            r_sreg<="00";
+            if i_reset='0' then
+                r_sreg<=std_logic_vector'(r_sreg(0)&i_async);
+            end if;
+        end if;
+    end process syncreg;
 
     --! state register fsm
 	fsm:process(i_clk)
@@ -96,7 +109,7 @@ begin
             case r_state is
                 when s_IDLE=>
                     r_state<=s_IDLE;
-                    if i_sync='1' then
+                    if r_sreg(1)='1' then
                         r_state<=s_COUNT;
                     end if;
                 when s_COUNT=>
@@ -104,7 +117,7 @@ begin
                     if w_done='1' then
                         r_state<=s_LOCK;
                     else
-                        if i_sync='0' then
+                        if r_sreg(1)='0' then
                             r_count<=s_IDLE;
                         end if;
                     end if;

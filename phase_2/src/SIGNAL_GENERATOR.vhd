@@ -59,12 +59,12 @@ use work.pk_controler.all;
 
 entity SIGNAL_GENERATOR is
 	port (
-		i_clk           : in  std_logic;
-        i_ctrl_slv      : in  tslv_ctrl;
-        o_reset_ack     : out std_logic;
-		o_signal_probe  : out tslv_bus_sortie;
-		o_cos           : out tslv_sample;
-		o_signal_rdy    : out std_logic
+		i_clk           : in  std_logic;  --! clock
+        i_ctrl_slv      : in  tslv_ctrl;  --! control signal bus
+        o_reset_ack     : out std_logic;  --! reset acknowledge for global reset synchronization
+		o_signal_probe  : out tslv_bus_sortie; --! output bus towards ILA
+		o_cos           : out tslv_sample; --! output signal towards filter
+		o_signal_rdy    : out std_logic --! output throughput indicating the start of virtual time
 	);
 end entity SIGNAL_GENERATOR;
 
@@ -114,13 +114,13 @@ begin
 	w_input <= w_ctrl.reset & w_ctrl.gen_active & w_ctrl.filter_active;
 
 	--! Process managing the activity state of the generator
+	--! fsm_extract
 	fsm1 : process(i_clk)
 	begin
 		if rising_edge(i_clk) then
 
 			r_state <= s_reset; --default
 
-			--state logic
 			if w_input="011" then
 				r_state <= s_gen_cos;
 			else

@@ -1,0 +1,13 @@
+digraph mygraph {
+    node [shape=box];
+    "s_reset"->"s_reset" [label="default"];
+    "s_reset"->"s_gen_saw" [label="ctrl=010"];
+    "s_reset"->"s_gen_cos" [label="ctrl=011"];
+    "s_gen_saw"->"s_reset" [label="default"];
+    "s_gen_saw"->"s_gen_saw" [label="ctrl=010"];
+    "s_gen_saw"->"s_gen_cos" [label="ctrl=011"];
+    "s_gen_cos"->"s_reset" [label="default"];
+    "s_gen_cos"->"s_gen_saw" [label="ctrl=010"];
+    "s_gen_cos"->"s_gen_cos" [label="ctrl=011"];
+
+}

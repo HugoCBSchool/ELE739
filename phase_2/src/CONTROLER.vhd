@@ -88,30 +88,117 @@ entity CONTROLER is
         i_input_slv        : in  tslv_input;	  --! the input values of the buttons
 		i_filter           : in  tslv_bus_sortie; --! output bus of filter
 		i_generator        : in  tslv_bus_sortie; --! output bus of generator
+
 		o_ctrl_bus         : out tslv_ctrl;       --! control bus towards signal generator and filter
 		o_mode_led_3       : out tslv_mode_led_3; --! led register output for mode output interface
 		o_bus_sortie       : out tslv_bus_sortie;  --! output bus towards output led register
-		o_reset_latch      : out tslv_input
 	);
 end CONTROLER;
 
 architecture Behavioral of CONTROLER is
 
-	signal w_in          : trec_input;																--! interface for input bus
-	signal w_reset_latch : trec_input;																--! interface for input reset signals
-	signal w_in_slv      : tslv_input;																--! typecast recepient
-	signal w_mux_out     : std_logic_vector(i_filter'length + o_mode_led_3'length -1 downto 0);		--! typecast recepient
-	signal r_mode    : s_mode := s_reset;															--! state register
-	signal r_reset_latch_next_mode : std_logic:='0';												--! reset logic register
-	signal w_ctrl : trec_ctrl;																		--! interface for control bus
+	signal w_in          			: trec_input;																--! interface for input bus
+	signal w_reset_latch 			: trec_input;																--! interface for input reset signals
+	signal w_in_async      		    : tslv_input;																--! typecast recepient
+	signal w_mux_out     			: std_logic_vector(i_filter'length + o_mode_led_3'length -1 downto 0);		--! typecast recepient
+	signal w_ctrl 					: trec_ctrl;																--! interface for control bus
+	
+	signal r_mode        			: s_mode   := s_reset;														--! state register
+	signal r_reset_latch_next_mode  : std_logic:='0';															--! reset logic register
     
-begin 
+begin
+	----------------------------------------------------------------------------
+	--io signals routing through oop interfaces
+	w_in_async	<=slv2input(i_input_slv);
+	o_ctrl_bus  <=ctrl2slv(w_ctrl);
+	-- ============================================================================
+	--              INPUT LATCHES FOR SYNC AND RTI APPLICATION
+	-- ----------------------------------------------------------------------------
+	--! Latch for the reset_g button
+	RESET_G_LATCH : entity work.INPUT_LATCH
+		generic map (
+			g_clk_freq_mhz => 100.0,
+			g_time_rst_s   => 0.5
+		)
+		port map (
+			i_async  => w_in_async.RESET_G,
+			i_reset => w_reset_latch.RESET_G,
+			i_clk   => i_clk,
+			o_done  => w_in.RESET_G
+		);
+	-- ----------------------------------------------------------------------------
+	--! Latch for the restart button
+	RESTART_LATCH : entity work.INPUT_LATCH
+		generic map (
+			g_clk_freq_mhz => 100.0,
+			g_time_rst_s   => 0.5
+		)
+		port map (
+			i_async  => w_in_async.RESTART,
+			i_reset => w_reset_latch.RESTART,
+			i_clk   => i_clk,
+			o_done  => w_in.RESTART
+		);
+	-- ----------------------------------------------------------------------------
+	--! Latch for the next_mode button
+	NEXT_MODE_LATCH : entity work.INPUT_LATCH
+		generic map (
+			g_clk_freq_mhz => 100.0,
+			g_time_rst_s   => 0.5
+		)
+		port map (
+			i_async  => w_in_async.NEXT_MODE,
+			i_reset =>  w_reset_latch.NEXT_MODE,
+			i_clk   =>  i_clk,
+			o_done  =>  w_in.NEXT_MODE
+		);
+	-- ============================================================================
+	
+	
+	-- ============================================================================
+	--! state machine of the mode
+	fsm: process(i_clk)
+	begin
+		if rising_edge(i_clk) then
+			--defaults
+            r_mode 					<=s_reset;
+            r_reset_latch_next_mode	<='0';
+			
 
-    ----------------------------------------------------------------------------
-	--input signals routing through oop interfaces
-    w_in          <=  slv2input( i_input_slv );
-    o_reset_latch <=  input2slv(w_reset_latch);
-    o_ctrl_bus    <=  ctrl2slv(w_ctrl);
+			if w_in.reset_g='1' then 	--global reset
+
+				r_mode=s_reset; 		--default is reset
+				-- if the controlled entities have resetted too, default is overriden and go to idle
+				if std_logic_vector'(i_reset_ack_gen&i_reset_ack_filter)="11" then
+					r_mode <= s_idle;
+				end if;
+
+			else 							--if not to be resetted
+
+				r_mode <= r_mode;			--default is no changes
+
+				if w_in.next_mode='1' then 			--if next mode button has been pressed
+
+					--next mode normally
+					case r_mode is
+						when s_reset  => r_mode <=s_idle;
+						when s_idle   => r_mode <=s_gen;
+						when s_gen    => r_mode <=s_filter;
+						when s_filter => r_mode <=s_idle;
+					end case;
+
+					r_reset_latch_next_mode<='1';	--action: reset latch of nextmode
+
+				end if;
+			end if;
+
+		end if;
+
+        end if;
+	end process fsm;
+	-- ============================================================================
+
+
     ----------------------------------------------------------------------------
 	with r_mode select w_ctrl.gen_active<=
 		'1' when s_gen,
@@ -126,18 +213,19 @@ begin
 		'1'			 when s_reset,
 		'1'			 when s_idle,
 		w_in.restart when others;
+
 	----------------------------------------------------------------------------
+	w_reset_latch.next_mode <= r_reset_latch_next_mode;
+
 	with r_mode select w_reset_latch.RESET_G   <= 
 	   (w_in.reset_g and i_reset_ack_filter and  i_reset_ack_gen)  when s_reset,
-	   ('0'                                                     )  when others; 
-    
-    w_reset_latch.next_mode <= r_reset_latch_next_mode;
-    
+	   ('0'                                                     )  when others;    
     with r_mode select w_reset_latch.restart <= 
-        (w_in.restart and i_reset_ack_filter and i_reset_ack_gen) when s_filter,
-        (w_in.restart and i_reset_ack_filter and i_reset_ack_gen) when s_gen,
-        (w_in.restart                                           ) when s_idle,
-        (w_in.restart                                           ) when s_reset;
+        (w_in.restart and i_reset_ack_filter and i_reset_ack_gen)  when s_filter,
+        (w_in.restart and i_reset_ack_filter and i_reset_ack_gen)  when s_gen,
+        (w_in.restart                                           )  when s_idle,
+        (w_in.restart                                           )  when s_reset;
+
 	----------------------------------------------------------------------------
 	--output mux logic
 	with r_mode select w_mux_out <=
@@ -150,35 +238,6 @@ begin
 	o_bus_sortie <= w_mux_out( i_filter'length  - 1 downto 0 );
 	o_mode_led_3 <= w_mux_out( w_mux_out'length - 1 downto i_filter'length );
 	----------------------------------------------------------------------------
-	--! state machine of the mode
-	fsm: process(i_clk)
-	begin
-		if rising_edge(i_clk) then
-
-            r_mode 					<=s_reset;
-            r_reset_latch_next_mode	<='0';
-
-            if w_in.reset_g='0' then
-
-            	r_mode <= r_mode;
-
-            	if w_in.next_mode='1' then
-
-            		r_reset_latch_next_mode<='1';
-
-            		case r_mode is
-	            		when s_reset  => r_mode <=s_idle;
-	            		when s_idle   => r_mode <=s_gen;
-	            	    when s_gen    => r_mode <=s_filter;
-	            	    when s_filter => r_mode <=s_idle;
-            		end case;
-
-            	end if;
-
-            end if;
-
-        end if;
-	end process fsm;
 
 
 end Behavioral;

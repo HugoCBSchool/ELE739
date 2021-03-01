@@ -50,15 +50,9 @@ architecture Behavioral of TOP is
 	-- ============================================================================
 	--                   CMC-RELATED DEFINITIONS AND SIGNALS
     -- ---------------------------------------------------------------------------
-    signal w_sync_in        : trec_input;
     signal w_in             : trec_input;
     signal wslv_in          : tslv_input;
-   	-- -----------------------------------------------------------
-	signal r_in_async_d     : tslv_input:="000";
-	signal r_in_async_dd    : tslv_input:="000";
 	-- ---------------------------------------------------------------------------
-	signal w_reset_latch    : trec_input;
-	signal wslv_reset_latch : tslv_input;
 	signal w_signal_rdy     : std_logic;
 	signal w_filter_rdy     : std_logic;
 	-- ============================================================================
@@ -70,8 +64,8 @@ architecture Behavioral of TOP is
 	-- ----------------------------------------------------------------------------
 	signal w_reset_ack_gen    		: std_logic;
 	signal w_reset_ack_filter 		: std_logic;
-    signal w_ctrl : trec_ctrl;
-    signal wslv_ctrl:tslv_ctrl;
+    signal w_ctrl 					: trec_ctrl;
+    signal wslv_ctrl				: tslv_ctrl;
 	signal w_filter_bus_sortie		: tslv_bus_sortie;
 	signal w_generator_bus_sortie	: tslv_bus_sortie;
 	signal w_mode_led_3       		: tslv_mode_led_3;
@@ -79,111 +73,23 @@ architecture Behavioral of TOP is
 	signal w_cos_signal				: tslv_sample;
 	-- ============================================================================
 
-
-
-	-- ============================================================================
-	--                         ATTRIBUTES
-	-- ----------------------------------------------------------------------------
-	attribute TIG : string;             -- TIG="TRUE" - Specifies a timing ignore for the asynchronous input
-	attribute IOB : string;             -- IOB="FALSE" = Specifies to not place the register into the IOB allowing 
-	                                    -- both synchronization registers to exist in the same slice 
-	attribute ASYNC_REG : string;       -- ASYNC_REG="TRUE" - Specifies registers will be receiving asynchronous data 
-	                                    -- input to allow for better timing simulation 
-	attribute HBLKNM : string;          -- HBLKNM="sync_reg" - Specifies to pack both registers into the same slice
-	-- ----------------------------------------------------------------------------
-	attribute TIG of i_pbn_reset_g        : signal is "TRUE";
-	attribute TIG of i_pbn_restart        : signal is "TRUE";
-	attribute TIG of i_pbn_next_mode      : signal is "TRUE";
-	attribute IOB of i_pbn_reset_g        : signal is "TRUE";
-	attribute IOB of i_pbn_restart        : signal is "TRUE";
-	attribute IOB of i_pbn_next_mode      : signal is "TRUE";
-	-- ----------------------------------------------------------------------------
-	attribute ASYNC_REG of r_in_async_d      : signal is "TRUE";
-	attribute ASYNC_REG of r_in_async_dd     : signal is "TRUE";
-	-- ----------------------------------------------------------------------------
-	attribute HBLKNM of r_in_async_d     : signal is "sync_reg";
-	attribute HBLKNM of r_in_async_dd    : signal is "sync_reg";
-	-- ============================================================================
-
 begin 
 
 	-- ============================================================================
 	--                        io routing
 	-- ----------------------------------------------------------------------------
-    w_sync_in        <= slv2input(r_in_async_dd);    -- interface routing of the synchronized slow-side inputs
     w_reset_latch    <= slv2input(wslv_reset_latch); -- routing of fast-side reset signals
-    o_led_bank_state <= w_mode_led_3;            -- output routing of the led bank output
+    o_led_bank_state <= w_mode_led_3;                -- output routing of the led bank output
     o_bus_sortie     <= w_bus_sortie;
     w_ctrl           <= slv2ctrl(wslv_ctrl);
     wslv_in          <= input2slv(w_in);
-    
+    w_in 			 <= slv2input(i_pbn_reset_g&i_pbn_restart&i_pbn_next_mode);
+
     with w_mode_led_3 select o_bus_sortie_rdy<=
         w_filter_rdy when c_mode_led_filter,
         w_signal_rdy when c_mode_led_gen,
         '0'          when others;
     -- ============================================================================
-
-
-
-    -- ============================================================================
-	--                        ASYNC_IO SYNC AND ROUTE
-	-- ----------------------------------------------------------------------------
-    --! cascaded 2-register for synchronization of async inputs in de slow domain
-    in_synchro: process(i_clk)
-    begin
-        if rising_edge(i_clk) then
-        
-            r_in_async_dd<=r_in_async_d;
-            r_in_async_d<=(i_pbn_reset_g&i_pbn_restart&i_pbn_next_mode);
-            
-        end if;
-    end process in_synchro;
-	-- ============================================================================
-
-
-
-	-- ============================================================================
-	--              INPUT LATCHES FOR SYNC AND RTI APPLICATION
-	-- ----------------------------------------------------------------------------
-	--! Latch for the reset_g button
-	RESET_G_LATCH : entity work.INPUT_LATCH
-		generic map (
-			g_clk_freq_mhz => 100.0,
-			g_time_rst_s   => 0.5
-		)
-		port map (
-			i_sync  => w_sync_in.RESET_G,
-			i_reset => w_reset_latch.RESET_G,
-			i_clk   => i_clk,
-			o_done  => w_in.RESET_G
-		);
-	-- ----------------------------------------------------------------------------
-	--! Latch for the restart button
-	RESTART_LATCH : entity work.INPUT_LATCH
-		generic map (
-			g_clk_freq_mhz => 100.0,
-			g_time_rst_s   => 0.5
-		)
-		port map (
-			i_sync  => w_sync_in.RESTART,
-			i_reset => w_reset_latch.RESTART,
-			i_clk   => i_clk,
-			o_done  => w_in.RESTART
-		);
-	-- ----------------------------------------------------------------------------
-	--! Latch for the next_mode button
-	NEXT_MODE_LATCH : entity work.INPUT_LATCH
-		generic map (
-			g_clk_freq_mhz => 100.0,
-			g_time_rst_s   => 0.5
-		)
-		port map (
-			i_sync  => w_sync_in.NEXT_MODE,
-			i_reset => w_reset_latch.NEXT_MODE,
-			i_clk   => i_clk,
-			o_done  => w_in.NEXT_MODE
-		);
-	-- ============================================================================
 
 
 
@@ -204,7 +110,6 @@ begin
 			o_ctrl_bus         => wslv_ctrl,
 			o_mode_led_3       => w_mode_led_3,
 			o_bus_sortie       => w_bus_sortie,
-			o_reset_latch      => wslv_reset_latch
 		);	
 	-- ============================================================================
 
