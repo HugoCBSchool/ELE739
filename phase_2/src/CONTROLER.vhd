@@ -161,41 +161,26 @@ begin
 	fsm: process(i_clk)
 	begin
 		if rising_edge(i_clk) then
-			--defaults
-            r_mode 					<=s_reset;
-            r_reset_latch_next_mode	<='0';
-			
-
-			if w_in.reset_g='1' then 	--global reset
-
-				r_mode=s_reset; 		--default is reset
-				-- if the controlled entities have resetted too, default is overriden and go to idle
-				if std_logic_vector'(i_reset_ack_gen&i_reset_ack_filter)="11" then
-					r_mode <= s_idle;
+            r_mode 					<=s_reset;										--default state is reset
+            r_reset_latch_next_mode	<='0';											--default reset for next-mode button latch is off
+			if w_in.reset_g='1' then 												--if global reset
+				r_mode=s_reset; 														--default is reset
+				if std_logic_vector'(i_reset_ack_gen&i_reset_ack_filter)="11" then		-- if the controlled entities have resetted too
+					r_mode <= s_idle;														--default is overriden and go to idle
 				end if;
-
-			else 							--if not to be resetted
-
-				r_mode <= r_mode;			--default is no changes
-
-				if w_in.next_mode='1' then 			--if next mode button has been pressed
-
-					--next mode normally
-					case r_mode is
+			else 																	--if not to be resetted
+				r_mode <= r_mode;														--default is no changes
+				if w_in.next_mode='1' then 												--if next mode button has been pressed
+					r_reset_latch_next_mode<='1';											--action: reset latch of nextmode
+					case r_mode is															--next state normally
 						when s_reset  => r_mode <=s_idle;
 						when s_idle   => r_mode <=s_gen;
 						when s_gen    => r_mode <=s_filter;
 						when s_filter => r_mode <=s_idle;
 					end case;
-
-					r_reset_latch_next_mode<='1';	--action: reset latch of nextmode
-
 				end if;
 			end if;
-
 		end if;
-
-        end if;
 	end process fsm;
 	-- ============================================================================
 
