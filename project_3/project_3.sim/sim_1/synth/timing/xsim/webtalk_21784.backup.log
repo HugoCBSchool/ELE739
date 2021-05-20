@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Webtalk v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:40:23 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Mon Mar 29 14:55:31 2021
+# Process ID: 21784
+# Current directory: C:/.uni/e739/project_3/project_3.sim/sim_1/synth/timing/xsim
+# Command line: wbtcv.exe -mode batch -source C:/.uni/e739/project_3/project_3.sim/sim_1/synth/timing/xsim/xsim.dir/SMALL_FIR_FILTER_TB_time_synth/webtalk/xsim_webtalk.tcl -notrace
+# Log file: C:/.uni/e739/project_3/project_3.sim/sim_1/synth/timing/xsim/webtalk.log
+# Journal file: C:/.uni/e739/project_3/project_3.sim/sim_1/synth/timing/xsim\webtalk.jou
+#-----------------------------------------------------------
+source C:/.uni/e739/project_3/project_3.sim/sim_1/synth/timing/xsim/xsim.dir/SMALL_FIR_FILTER_TB_time_synth/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-186] 'C:/.uni/e739/project_3/project_3.sim/sim_1/synth/timing/xsim/xsim.dir/SMALL_FIR_FILTER_TB_time_synth/webtalk/usage_statistics_ext_xsim.xml' has been successfully sent to Xilinx on Mon Mar 29 14:55:34 2021. For additional details about this file, please refer to the WebTalk help file at C:/Xilinx/Vivado/2019.2/doc/webtalk_introduction.html.
+INFO: [Common 17-206] Exiting Webtalk at Mon Mar 29 14:55:34 2021...

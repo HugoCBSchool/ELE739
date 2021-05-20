@@ -1,0 +1,1 @@
+-wto "e83707ef1b6f4c2cae29b76f14d16157" --incr --debug "typical" --relax --mt "2" --maxdelay -L "xil_defaultlib" -L "simprims_ver" -L "secureip" --snapshot "SMALL_FIR_FILTER_TB_time_synth" -transport_int_delays -pulse_r "0" -pulse_int_r "0" -pulse_e "0" -pulse_int_e "0" "xil_defaultlib.SMALL_FIR_FILTER_TB" "xil_defaultlib.glbl" -log "elaborate.log" 

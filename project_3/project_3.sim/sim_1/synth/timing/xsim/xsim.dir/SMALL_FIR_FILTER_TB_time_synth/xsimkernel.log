@@ -1,0 +1,7 @@
+Running: xsim.dir/SMALL_FIR_FILTER_TB_time_synth/xsimk.exe -simmode gui -wdb SMALL_FIR_FILTER_TB_time_synth.wdb -simrunnum 0 -socket 58143
+Design successfully loaded
+Design Loading Memory Usage: 10780 KB (Peak: 10780 KB)
+Design Loading CPU Usage: 31 ms
+Simulation completed
+Simulation Memory Usage: 14380 KB (Peak: 14380 KB)
+Simulation CPU Usage: 515 ms
